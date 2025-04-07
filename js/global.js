@@ -1,6 +1,6 @@
 
-alert('testando');
-let params = new URLSearchParams(document.location.search);
+alert(window.location.search);
+let params = new URLSearchParams(window.location.search);
 let url = params.get("video"); // is the string "Jonathan"
 
 alert(params);
