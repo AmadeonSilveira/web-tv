@@ -1,7 +1,8 @@
+
+alert('testando');
 //1. Gerar o QRCode com o código da TV e registra a TV
 window.addEventListener("load", async function(e){
     console.log('fui carregado', e);
-    this.alert('testando');
 });
 
 //2. buscar URL do vídeo
