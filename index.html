@@ -3,12 +3,21 @@
     <head>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>Astron Members TV - Player</title>
+        <title>Astron TV</title>
     </head>
-    <body>
-        <h1>Bom dia</h1>
 
-        <!-- JS -->
-        <script src="/global.js" type="text/javascript" charset="utf-8"></script>
+    <body>            
+        <!-- PLAYERS CONTAINER -->
+        <div class="players-container">
+            <div id="player-provider"></div>
+            <video controls crossorigin id="player"></video> 
+        </div>
+        
+        <!-- SCRIPTS -->
+        <script src="plugins/jquery/jquery.js" type="text/javascript" charset="utf-8"></script>
+        <script src="plugins/plyr/hls.min.js"></script>
+        <script src="plugins/plyr/dash.min.js"></script>
+        <script src="plugins/plyr/plyr.min.js"></script>
+        <script src="js/global.js" type="text/javascript" charset="utf-8"></script>
     </body>
 </html>
