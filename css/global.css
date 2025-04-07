@@ -1,0 +1,154 @@
+:root {
+    --plyr-color-main: #DE4141;
+}
+
+body, html {
+    padding: 0;
+    width: 100%;
+    height: 100%;
+    background-color: #060606;
+    color: #FFFFFF;
+}
+
+body {
+    background: linear-gradient(120deg, #313131 53%, #DA1A47 50%, #B4500E);
+}
+
+
+/** PLAYER */
+.plyr__controls__item.plyr__menu,
+.plyr__controls__item.plyr__control {
+    display: none;
+}
+
+/** PAGE */
+body, html, h1, h3, p {
+    margin: 0;
+    font-family: 'Nunito Sans';
+}
+h3 {
+    font-size: 1vw;
+}
+.container {
+    padding: 2.5vw;
+}
+
+p {
+    font-size: 1.4vw;
+    margin: 0;
+    opacity: 0.7;
+    font-weight: 300 !important;
+}
+.titulo {
+    font-size: 2vw;
+    opacity: 1;
+    font-weight: bold !important;
+}
+
+.subbg-color {
+    background-color: #313131;
+    padding: 1.6vw;
+    border-radius: 0.52vw;
+    margin: 0 auto;
+    width: 17vw;
+    height: 17vw;
+}
+
+header {
+    display: flex;
+    align-items: center;
+    margin-bottom: 2.6vw;
+}
+header h3 {
+    color: #CBCBCB;
+}
+
+.code-tutorial {
+    max-width: 50%;
+}
+.code-tutorial h1 {
+    padding-bottom: 0.52vw;
+}
+.code-tutorial ul {
+    list-style: none;
+    padding-left: 0.78vw;
+    margin: 0;
+}
+.code-tutorial li {
+    padding-top: 1.3vw;
+}
+
+.code-container {
+    width: 50%;
+}
+.code-container-text {
+    padding-top: 1.56vw;
+    padding-bottom: 1.56vw;
+}
+.code {
+    height: auto;
+}
+
+.content-container:not(.active),
+.players-container:not(.active) {
+    display: none;
+}
+
+footer {
+    position: absolute;
+    bottom: 0.78vw;
+    width: 100%;
+    text-align: center;
+}
+
+
+.flex-container {
+    display: flex;
+}
+.flex-container-column {
+    display: flex;
+    flex-direction: column;
+}
+
+.flex-align-center {
+    justify-content: center;
+}
+.flex-align-space-between {
+    justify-content: space-between;
+}
+.flex-align-middle {
+    align-items: center;
+}
+
+.gap5 {
+    gap: 2.6vw;
+}
+
+.text-center {
+    text-align: center;
+}
+
+body.loading * {
+    display: none;
+}
+body.loading {
+    background: #313131;
+}
+
+.subbg-color:not(.active)::before,
+body.loading::before {
+    content: "";
+    width: 2.6vw;
+    height: 2.6vw;
+    border: 0.26vw solid rgba(255, 255, 255, 0.3); 
+    border-top-color: white;
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+    position: absolute;
+}
+
+
+@keyframes spin {
+    from { transform: rotate(0deg); }
+    to { transform: rotate(360deg); }
+}
