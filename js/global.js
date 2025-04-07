@@ -3,7 +3,8 @@ alert('testando');
 let params = new URLSearchParams(document.location.search);
 let url = params.get("video"); // is the string "Jonathan"
 
-console.log('fui carregado', url, params);
+alert(params);
+alert(url);
 
 //1. Gerar o QRCode com o código da TV e registra a TV
 window.addEventListener("load", async function(e){
