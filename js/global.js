@@ -1,14 +1,16 @@
+// Função para obter parâmetros da URL
+function getQueryParam(param) {
+    const urlParams = new URLSearchParams(window.location.search);
+    return urlParams.get(param);
+}
 
-alert(window.location.search);
-let params = new URLSearchParams(window.location.search);
-let url = params.get("video"); // is the string "Jonathan"
+// Captura o parâmetro "video" da URL
+const videoUrl = getQueryParam('video');
 
-alert(params);
-alert(url);
-
-//1. Gerar o QRCode com o código da TV e registra a TV
-window.addEventListener("load", async function(e){
-});
+if (videoUrl) {
+    console.log("URL do vídeo recebida:", videoUrl);
+    document.getElementById("player").src = videoUrl; // Exemplo de uso no player
+}
 
 //2. buscar URL do vídeo
 window.addEventListener('message', function(event) { //recebe uma postmessage da API com as infos do device
