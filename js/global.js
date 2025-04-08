@@ -1,22 +1,12 @@
-// Função para obter parâmetros da URL
-function getQueryParam(param) {
-    const urlParams = new URLSearchParams(window.location.search);
-    return urlParams.get(param);
-}
-
-// Captura o parâmetro "video" da URL
-const videoUrl = getQueryParam('video');
-alert(window.location.search);
+// Verifica se o parâmetro veio pela URL ou foi definido manualmente
+const videoUrl = window.videoUrl || new URLSearchParams(window.location.search).get('video');
 alert(videoUrl);
 
 if (videoUrl) {
-    alert('if videoUrl', videoUrl);
     initPlayer(videoUrl);
-    document.querySelector(".content-container").classList.remove("active");
     document.querySelector(".players-container").classList.add("active");
 } else {
     //esconde o player do vídeo quando não encontra uma URL
-    document.querySelector(".content-container").classList.add("active");
     document.querySelector(".players-container").classList.remove("active");
 }
 
