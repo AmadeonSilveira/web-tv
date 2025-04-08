@@ -6,10 +6,22 @@ function getQueryParam(param) {
 
 // Captura o parâmetro "video" da URL
 const videoUrl = getQueryParam('video');
+alert(videoUrl);
 
 if (videoUrl) {
-    console.log("URL do vídeo recebida:", videoUrl);
-    document.getElementById("player").src = videoUrl; // Exemplo de uso no player
+    alert('if videoUrl', videoUrl);
+    if(videoUrl) {
+        initPlayer(videoUrl);
+        document.querySelector(".content-container").classList.remove("active");
+        document.querySelector(".players-container").classList.add("active");
+        return true;
+    }
+    
+    //esconde o player do vídeo quando não encontra uma URL
+    document.querySelector(".content-container").classList.add("active");
+    document.querySelector(".players-container").classList.remove("active");
+
+    return;
 }
 
 //2. buscar URL do vídeo
