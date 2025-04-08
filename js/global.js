@@ -6,26 +6,22 @@ function getQueryParam(param) {
 
 // Captura o parâmetro "video" da URL
 const videoUrl = getQueryParam('video');
+alert(window.location.search);
 alert(videoUrl);
 
 if (videoUrl) {
     alert('if videoUrl', videoUrl);
-    if(videoUrl) {
-        initPlayer(videoUrl);
-        document.querySelector(".content-container").classList.remove("active");
-        document.querySelector(".players-container").classList.add("active");
-        return true;
-    }
-    
+    initPlayer(videoUrl);
+    document.querySelector(".content-container").classList.remove("active");
+    document.querySelector(".players-container").classList.add("active");
+} else {
     //esconde o player do vídeo quando não encontra uma URL
     document.querySelector(".content-container").classList.add("active");
     document.querySelector(".players-container").classList.remove("active");
-
-    return;
 }
 
 //2. buscar URL do vídeo
-window.addEventListener('message', function(event) { //recebe uma postmessage da API com as infos do device
+/**window.addEventListener('message', function(event) { //recebe uma postmessage da API com as infos do device
     const currentVideo = (event.data && event.data.currentVideo)? event.data.currentVideo : false;
 
     if(event.data) { //verifica a origem da mensagem
@@ -52,7 +48,7 @@ window.addEventListener('message', function(event) { //recebe uma postmessage da
     }
 
     return;
-});
+}); */
 
 //3. Identificar o tipo de URL e iniciar o player
 function initPlayer(url) {
