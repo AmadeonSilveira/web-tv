@@ -10,59 +10,43 @@ if (videoUrl) {
     document.querySelector(".players-container").classList.remove("active");
 }
 
-//2. buscar URL do vídeo
-/**window.addEventListener('message', function(event) { //recebe uma postmessage da API com as infos do device
-    const currentVideo = (event.data && event.data.currentVideo)? event.data.currentVideo : false;
-
-    if(event.data) { //verifica a origem da mensagem
-        if(event.data.type == "astron-members-tv") {
-            //inicia o player com a URL de retorno
-            if(currentVideo) {
-                initPlayer(currentVideo);
-                document.querySelector(".content-container").classList.remove("active");
-                document.querySelector(".players-container").classList.add("active");
-                return true;
-            }
-        
-            //esconde o player do vídeo quando não encontra uma URL
-            document.querySelector(".content-container").classList.add("active");
-            document.querySelector(".players-container").classList.remove("active");
-
-            return;
-        }
-
-        if(event.data.type == "reload") {
-            window.location.reload();
-            return;
-        }
-    }
-
-    return;
-}); */
-
 //3. Identificar o tipo de URL e iniciar o player
 function initPlayer(url) {
-    try {
-        if(url.includes("youtube.com") || url.includes("youtu.be")) {
-            initVideo(url, "youtube");
-            return;
-        } else if(url.includes("vimeo.com")) {
-            initVideo(url, "vimeo");
-            return;
-        } else if (url.endsWith('.m3u8')) {
-            initVideoHls(url);
-            return;
-        } else if (url.endsWith('.mpd')) {
-            initVideoDash(url);
-            return;
-        } else if (url.endsWith('.mp4')) {
-            return "html";
-        }
-    } catch (error) {
-        console.error("Erro ao iniciar vídeo", error);
+    const playerContainer = document.getElementById("player-container");
+
+    if (!playerContainer) {
+        console.error("Erro: container do player não encontrado.");
         return;
     }
+
+    // Remove o player antigo
+    playerContainer.innerHTML = `
+        <div id="player-provider"></div>
+        <video id="player" controls crossorigin></video>
+    `;
+
+    // Aguarda um tempo curto para evitar conflitos
+    setTimeout(() => {
+        // Define a URL globalmente para que o player use
+        window.videoUrl = url;
+
+        // Verifica o tipo de URL e inicia o player correto
+        if (url.includes("youtube.com") || url.includes("youtu.be")) {
+            initVideo(url, "youtube");
+        } else if (url.includes("vimeo.com")) {
+            initVideo(url, "vimeo");
+        } else if (url.endsWith(".m3u8")) {
+            initVideoHls(url);
+        } else if (url.endsWith(".mpd")) {
+            initVideoDash(url);
+        } else if (url.endsWith(".mp4")) {
+            document.getElementById("player").src = url;
+        } else {
+            console.error("Erro: Formato de vídeo não suportado.");
+        }
+    }, 300); // Tempo curto para evitar conflitos
 }
+
 
 //inicia o player com hls.js (.m3u8)
 function initVideoHls(url) {
