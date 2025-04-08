@@ -12,41 +12,27 @@ if (videoUrl) {
 
 //3. Identificar o tipo de URL e iniciar o player
 function initPlayer(url) {
-    const playerContainer = document.getElementById("player-container");
-
-    if (!playerContainer) {
-        console.error("Erro: container do player não encontrado.");
+    try {
+        if(url.includes("youtube.com") || url.includes("youtu.be")) {
+            initVideo(url, "youtube");
+            return;
+        } else if(url.includes("vimeo.com")) {
+            initVideo(url, "vimeo");
+            return;
+        } else if (url.endsWith('.m3u8')) {
+            initVideoHls(url);
+            return;
+        } else if (url.endsWith('.mpd')) {
+            initVideoDash(url);
+            return;
+        } else if (url.endsWith('.mp4')) {
+            return "html";
+        }
+    } catch (error) {
+        console.error("Erro ao iniciar vídeo", error);
         return;
     }
-
-    // Remove o player antigo
-    playerContainer.innerHTML = `
-        <div id="player-provider"></div>
-        <video id="player" controls crossorigin></video>
-    `;
-
-    // Aguarda um tempo curto para evitar conflitos
-    setTimeout(() => {
-        // Define a URL globalmente para que o player use
-        window.videoUrl = url;
-
-        // Verifica o tipo de URL e inicia o player correto
-        if (url.includes("youtube.com") || url.includes("youtu.be")) {
-            initVideo(url, "youtube");
-        } else if (url.includes("vimeo.com")) {
-            initVideo(url, "vimeo");
-        } else if (url.endsWith(".m3u8")) {
-            initVideoHls(url);
-        } else if (url.endsWith(".mpd")) {
-            initVideoDash(url);
-        } else if (url.endsWith(".mp4")) {
-            document.getElementById("player").src = url;
-        } else {
-            console.error("Erro: Formato de vídeo não suportado.");
-        }
-    }, 300); // Tempo curto para evitar conflitos
 }
-
 
 //inicia o player com hls.js (.m3u8)
 function initVideoHls(url) {
