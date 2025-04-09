@@ -93,7 +93,6 @@ document.addEventListener('keydown', (event) => {
 
 //aciona a ação de acordo com a tecla do controle
 function keyPressed(key){
-    alert("keyPressed" + key);
     switch (key) {
         case "ArrowRight": //avançar vídeo
             window.player.forward(); 
