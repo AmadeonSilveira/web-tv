@@ -4,10 +4,6 @@ alert(videoUrl);
 
 if (videoUrl) {
     initPlayer(videoUrl);
-    //document.querySelector(".players-container").classList.add("active");
-} else {
-    //esconde o player do vídeo quando não encontra uma URL
-    //document.querySelector(".players-container").classList.remove("active");
 }
 
 //3. Identificar o tipo de URL e iniciar o player
@@ -26,21 +22,33 @@ function initPlayer(url) {
             initVideoDash(url);
             return;
         } else if (url.endsWith('.mp4')) {
-            return "html";
+            initVideoHtml(url);
+            return;
         }
     } catch (error) {
-        console.error("Erro ao iniciar vídeo", error);
+        console.error("[PROXY] Erro ao iniciar vídeo", error);
         return;
     }
 }
 
+function clearPlayerContainer() {
+    const container = document.querySelector(".players-container");
+    container.innerHTML = ""; // Remove todos os elementos dentro do container
+    return container;
+}
+
 //inicia o player com hls.js (.m3u8)
 function initVideoHls(url) {
-	const container = document.querySelector('video');
+    const container = clearPlayerContainer();
+    const video = document.createElement("video");
+    video.setAttribute("controls", "");
+    video.setAttribute("crossorigin", "");
+    container.appendChild(video);
+    
 	const player = new Plyr(container, { autoplay: true });
 	
 	if (!Hls.isSupported()) {
-		container.src = url;
+		video.src = url;
 	} else {
         const hls = new Hls({
             maxBufferLength: 60, //limita o buffer a 60 segundos para evitar sobrecarga de memória.
@@ -63,8 +71,12 @@ function initVideoHls(url) {
 
 //inicia o player com dash.js (.mpd)
 function initVideoDash(url) {
+    const container = clearPlayerContainer();
+    const video = document.createElement("video");
+    video.setAttribute("controls", "");
+    container.appendChild(video);
+
     const dash = dashjs.MediaPlayer().create();
-    const container = document.querySelector('video');
 	dash.initialize(container, url, true);
 
     const player = new Plyr(container, {captions: {active: true, update: true}, autoplay: true});
@@ -76,13 +88,29 @@ function initVideoDash(url) {
 
 //inicia o player com os provedores vímeo ou youtube
 function initVideo(url, provider) {
-    const container = document.querySelector("#player-provider");
-    container.setAttribute("data-plyr-provider", provider);
-    container.setAttribute("data-plyr-embed-id", url);
+    const container = clearPlayerContainer();
+    const playerDiv = document.createElement("div");
+    playerDiv.setAttribute("data-plyr-provider", provider);
+    playerDiv.setAttribute("data-plyr-embed-id", url);
+    container.appendChild(playerDiv);
 
     const player = new Plyr(container, { autoplay: true });
 
     player.fullscreen.enter(); //inicia em tela cheia
+    window.player = player;
+}
+
+//inicia o player para vídeos MP4
+function initVideoHtml(url) {
+    const container = clearPlayerContainer();
+    const video = document.createElement("video");
+    video.setAttribute("controls", "");
+    video.setAttribute("autoplay", "");
+    video.src = url;
+    container.appendChild(video);
+
+    const player = new Plyr(video);
+    player.fullscreen.enter();
     window.player = player;
 }
 
