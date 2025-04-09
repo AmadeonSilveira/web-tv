@@ -4,10 +4,10 @@ alert(videoUrl);
 
 if (videoUrl) {
     initPlayer(videoUrl);
-    document.querySelector(".players-container").classList.add("active");
+    //document.querySelector(".players-container").classList.add("active");
 } else {
     //esconde o player do vídeo quando não encontra uma URL
-    document.querySelector(".players-container").classList.remove("active");
+    //document.querySelector(".players-container").classList.remove("active");
 }
 
 //3. Identificar o tipo de URL e iniciar o player
@@ -93,6 +93,7 @@ document.addEventListener('keydown', (event) => {
 
 //aciona a ação de acordo com a tecla do controle
 function keyPressed(key){
+    alert("keyPressed" + key);
     switch (key) {
         case "ArrowRight": //avançar vídeo
             window.player.forward(); 
