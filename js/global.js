@@ -32,7 +32,7 @@ function initPlayer(url) {
 }
 
 function clearPlayerContainer() {
-    const container = document.querySelector(".players-container");
+    const container = document.getElementById("players-container");
     container.innerHTML = ""; // Remove todos os elementos dentro do container
     return container;
 }
