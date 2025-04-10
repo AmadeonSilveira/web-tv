@@ -31,9 +31,10 @@ function initPlayer(url) {
     }
 }
 
+//limpa o container de player
 function clearPlayerContainer() {
     const container = document.getElementById("players-container");
-    container.innerHTML = ""; // Remove todos os elementos dentro do container
+    container.innerHTML = "";
     return container;
 }
 
