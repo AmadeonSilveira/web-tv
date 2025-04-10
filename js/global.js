@@ -34,7 +34,7 @@ function initPlayer(url) {
 //limpa o container de player
 function clearPlayerContainer() {
     const container = document.getElementById("players-container");
-    alert(container);
+    alert(document);
     container.innerHTML = "<div></div>";
     return container;
 }
