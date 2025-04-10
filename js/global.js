@@ -31,26 +31,14 @@ function initPlayer(url) {
     }
 }
 
-//limpa o container de player
-function clearPlayerContainer() {
-    const container = document.getElementById("players-container");
-    alert(document);
-    container.innerHTML = "<div></div>";
-    return container;
-}
 
 //inicia o player com hls.js (.m3u8)
 function initVideoHls(url) {
-    const container = clearPlayerContainer();
-    const video = document.createElement("video");
-    video.setAttribute("controls", "");
-    video.setAttribute("crossorigin", "");
-    container.appendChild(video);
-    
+    const container = document.querySelector('video');
 	const player = new Plyr(container, { autoplay: true });
 	
 	if (!Hls.isSupported()) {
-		video.src = url;
+		container.src = url;
 	} else {
         const hls = new Hls({
             maxBufferLength: 60, //limita o buffer a 60 segundos para evitar sobrecarga de memória.
@@ -73,10 +61,7 @@ function initVideoHls(url) {
 
 //inicia o player com dash.js (.mpd)
 function initVideoDash(url) {
-    const container = clearPlayerContainer();
-    const video = document.createElement("video");
-    video.setAttribute("controls", "");
-    container.appendChild(video);
+    const container = document.querySelector('video');
 
     const dash = dashjs.MediaPlayer().create();
 	dash.initialize(container, url, true);
@@ -90,11 +75,9 @@ function initVideoDash(url) {
 
 //inicia o player com os provedores vímeo ou youtube
 function initVideo(url, provider) {
-    const container = clearPlayerContainer();
-    const playerDiv = document.createElement("div");
-    playerDiv.setAttribute("data-plyr-provider", provider);
-    playerDiv.setAttribute("data-plyr-embed-id", url);
-    container.appendChild(playerDiv);
+    const container = document.querySelector("#player-provider");
+    container.setAttribute("data-plyr-provider", provider);
+    container.setAttribute("data-plyr-embed-id", url);
 
     const player = new Plyr(container, { autoplay: true });
 
@@ -104,12 +87,10 @@ function initVideo(url, provider) {
 
 //inicia o player para vídeos MP4
 function initVideoHtml(url) {
-    const container = clearPlayerContainer();
-    const video = document.createElement("video");
-    video.setAttribute("controls", "");
-    video.setAttribute("autoplay", "");
-    video.src = url;
-    container.appendChild(video);
+    const container = document.querySelector('video');
+    container.setAttribute("controls", "");
+    container.setAttribute("autoplay", "");
+    container.src = url;
 
     const player = new Plyr(video);
     player.fullscreen.enter();
