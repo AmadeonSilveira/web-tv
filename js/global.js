@@ -1,5 +1,5 @@
 // Usa window.videoUrl diretamente para evitar redeclaração
-const videoUrl = window.videoUrl ?? new URLSearchParams(window.location.search).get('video');
+var videoUrl = window.videoUrl ?? new URLSearchParams(window.location.search).get('video');
 
 alert(videoUrl);
 
